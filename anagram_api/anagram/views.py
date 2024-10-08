@@ -17,14 +17,14 @@ class WordViewSet(viewsets.ModelViewSet):
     @action(
         detail=False,
         methods=["POST"],
-        url_path="check-anagram",
-        url_name="check_anagram"
+        url_path="check",
+        url_name="check"
     )
     def check_anagram(self, request):
         serializer = AnagramSerializer(data=request.data)
 
         if serializer.is_valid(raise_exception=True):
-            anagram = serializer.validated_data["anagram"]
+            anagram = serializer.data["sorted_anagram"]
 
             words = Word.objects.all()
             sorted_words = sorted_words_to_dict(words)
